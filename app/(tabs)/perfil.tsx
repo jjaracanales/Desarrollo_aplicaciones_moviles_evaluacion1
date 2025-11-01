@@ -1,11 +1,33 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert, Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useUser } from '../../context/UserContext';
+import { router } from 'expo-router';
 
 export default function PerfilTab() {
-  const { email } = useUser();
+  const { email, setEmail } = useUser();
+
+  const handleLogout = () => {
+    Alert.alert(
+      'Cerrar sesión',
+      '¿Estás seguro de que deseas cerrar sesión?',
+      [
+        {
+          text: 'Cancelar',
+          style: 'cancel',
+        },
+        {
+          text: 'Cerrar sesión',
+          style: 'destructive',
+          onPress: () => {
+            setEmail('');
+            router.replace('/login');
+          },
+        },
+      ]
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -17,8 +39,20 @@ export default function PerfilTab() {
         <Text style={styles.title}>Perfil de Usuario</Text>
         <View style={styles.infoContainer}>
           <MaterialIcons name="email" size={24} color="#10B981" />
-          <Text style={styles.email}>{email || 'No disponible'}</Text>
+          <Text style={styles.email}>
+            {email || 'No disponible'}
+          </Text>
         </View>
+
+        {/* Logout Button */}
+        <TouchableOpacity 
+          style={styles.logoutButton} 
+          onPress={handleLogout}
+          activeOpacity={0.8}
+        >
+          <MaterialIcons name="logout" size={20} color="#DC2626" />
+          <Text style={styles.logoutButtonText}>Cerrar sesión</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -73,11 +107,31 @@ const styles = StyleSheet.create({
     borderColor: '#D1FAE5',
   },
   email: {
-    fontSize: 18,
+    fontSize: 15,
     color: '#059669',
     marginLeft: 12,
     flex: 1,
     fontWeight: '600',
+  },
+  logoutButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#FEE2E2',
+    paddingVertical: 14,
+    paddingHorizontal: 20,
+    borderRadius: 12,
+    marginTop: 24,
+    borderWidth: 1,
+    borderColor: '#FECACA',
+    width: '100%',
+  },
+  logoutButtonText: {
+    color: '#DC2626',
+    fontSize: 16,
+    fontWeight: '600',
+    marginLeft: 8,
+    fontFamily: Platform.OS === 'ios' ? 'System' : 'Roboto',
   },
 });
 
