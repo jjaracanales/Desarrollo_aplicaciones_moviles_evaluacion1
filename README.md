@@ -60,7 +60,7 @@ Ev1/
 
 ## 📸 Video Demostración
 
-[📹 Ver video de demostración (https://drive.google.com/file/d/1D0gf_HnTGDX11DZNcWuVDjLK9kKEmXcv/view?usp=drive_link) *(Enlace a actualizar con video corto mostrando el funcionamiento)*
+[📹 Ver video de demostración (https://drive.google.com/file/d/1D0gf_HnTGDX11DZNcWuVDjLK9kKEmXcv/view?usp=drive_link) 
 
 ## 📝 Notas de Desarrollo
 
